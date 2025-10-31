@@ -1,21 +1,25 @@
-var builder = WebApplication.CreateBuilder(args);
+using Microsoft.EntityFrameworkCore;
+using UralHiking.Database;
 
-// Add services to the container.
+var builder = WebApplication.CreateBuilder(new WebApplicationOptions { WebRootPath = "static" });
 
 builder.Services.AddControllers();
-// Learn more about configuring OpenAPI at https://aka.ms/aspnet/openapi
-builder.Services.AddOpenApi();
+builder.Services.AddEndpointsApiExplorer();
+builder.Services.AddSwaggerGen();
+builder.Services.AddDbContext<DatabaseContext>(options =>
+    options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection"))
+);
 
 var app = builder.Build();
 
-// Configure the HTTP request pipeline.
-if (app.Environment.IsDevelopment())
+if (!app.Environment.IsProduction())
 {
-    app.MapOpenApi();
+    app.UseSwagger();
+    app.UseSwaggerUI();
 }
+await using var db = app.Services.GetRequiredService<DatabaseContext>();
+await db.Database.MigrateAsync();
 
-app.UseAuthorization();
-
+app.UseStaticFiles();
 app.MapControllers();
-
 app.Run();

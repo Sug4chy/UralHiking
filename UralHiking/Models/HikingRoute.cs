@@ -1,9 +1,7 @@
+using System.Text.Json.Serialization;
 using UralHiking.Models.Enums;
 
 namespace UralHiking.Models;
-
-using System.Collections.Generic;
-using System.Text.Json.Serialization;
 
 public sealed class HikingRoute
 {
