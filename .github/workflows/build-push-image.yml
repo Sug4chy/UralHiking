@@ -25,6 +25,6 @@ jobs:
         uses: docker/build-push-action/@v5
         with:
           context: .
-          file: ./RfrapBackendDdd.Web/Dockerfile
+          file: ./UralHiking/Dockerfile
           push: true
           tags: ${{ secrets.DOCKERHUB_USERNAME }}/${{ secrets.DOCKERHUB_REPO_NAME }}
