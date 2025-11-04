@@ -3,12 +3,12 @@ using Microsoft.AspNetCore.Mvc;
 namespace UralHiking.Controllers;
 
 [ApiController]
-[Route("api/static-files")]
-public sealed class StaticFilesController : ControllerBase
+[Route("api/[controller]")]
+public sealed class ImagesController : ControllerBase
 {
     private readonly IWebHostEnvironment _environment;
 
-    public StaticFilesController(IWebHostEnvironment environment)
+    public ImagesController(IWebHostEnvironment environment)
     {
         _environment = environment;
     }

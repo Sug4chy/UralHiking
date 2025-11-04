@@ -11,7 +11,6 @@ public sealed class DatabaseContext : DbContext
 
     public DatabaseContext(DbContextOptions<DatabaseContext> options) : base(options)
     {
-        Database.EnsureCreated();
     }
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
@@ -21,10 +20,9 @@ public sealed class DatabaseContext : DbContext
             .HasMany(x => x.Coordinates)
             .WithOne(x => x.HikingRoute)
             .HasForeignKey(x => x.HikingRouteId);
-    
+
         modelBuilder.Entity<HikingRoute>()
             .HasMany(x => x.GearItems)
-            .WithMany(x => x.HikingRoutes)
-            .UsingEntity(x => x.ToTable("HikingRoutesGearItems"));
+            .WithMany(x => x.HikingRoutes);
     }
 }
