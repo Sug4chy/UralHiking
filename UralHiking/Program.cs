@@ -3,9 +3,6 @@ using Microsoft.EntityFrameworkCore;
 using UralHiking.Database;
 
 var builder = WebApplication.CreateBuilder(new WebApplicationOptions { WebRootPath = "static" });
-CreateDirectoryIfNotExists(builder.Environment.ContentRootPath);
-CreateDirectoryIfNotExists(builder.Environment.WebRootPath);
-CreateDirectoryIfNotExists(Path.Combine(builder.Environment.WebRootPath, "images"));
 
 builder.Services.AddControllers().AddJsonOptions(options =>
 {
@@ -39,12 +36,3 @@ await using (var scope = app.Services.CreateAsyncScope())
 app.UseStaticFiles();
 app.MapControllers();
 app.Run();
-return;
-
-void CreateDirectoryIfNotExists(string path)
-{
-    if (!Directory.Exists(path))
-    {
-        Directory.CreateDirectory(path);
-    }
-}
