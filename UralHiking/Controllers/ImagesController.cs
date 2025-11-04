@@ -30,6 +30,6 @@ public sealed class ImagesController : ControllerBase
         await photo.CopyToAsync(fs, ct);
         await fs.FlushAsync(ct);
 
-        return Created($"{Request.Scheme}://{Request.Host}{Request.PathBase}/images/{fileName}", null);
+        return Created($"https://{Request.Host}{Request.PathBase}/images/{fileName}", null);
     }
 }
