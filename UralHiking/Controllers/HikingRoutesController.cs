@@ -9,7 +9,7 @@ namespace UralHiking.Controllers;
 
 [ApiController]
 [Route("/api/hiking-routes")]
-public class HikingRoutesController : ControllerBase
+public sealed class HikingRoutesController : ControllerBase
 {
     private readonly DatabaseContext _dbContext;
 
@@ -29,6 +29,7 @@ public class HikingRoutesController : ControllerBase
         };
 
     [HttpGet]
+    [ProducesResponseType(typeof(HikingRoute[]), StatusCodes.Status200OK)]
     public async Task<IActionResult> GetAll(CancellationToken ct = default)
     {
         var result = await _dbContext.HikingRoutes

@@ -1,8 +1,6 @@
-using System.Text.Json.Serialization;
-
 namespace UralHiking.Models.Dto;
 
-public record GearItemDto(
-    [property: JsonPropertyName("text")] string Text,
-    [property: JsonPropertyName("url")] string Url
+public sealed record GearItemDto(
+    string Text,
+    string Url
 );
