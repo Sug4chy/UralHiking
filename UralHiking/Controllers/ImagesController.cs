@@ -32,7 +32,7 @@ public sealed class ImagesController : ControllerBase
         return Created($"{Request.Scheme}://{Request.Host}{Request.PathBase}/images/{fileName}", null);
     }
 
-    [HttpDelete("fileName")]
+    [HttpDelete("{fileName}")]
     public IActionResult DeleteFile([FromRoute] string fileName, CancellationToken ct = default)
     {
         string absoluteFilePath = Path.Combine(WebRootImagesPath, fileName);
