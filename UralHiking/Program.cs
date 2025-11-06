@@ -15,8 +15,15 @@ builder.Services.AddDbContext<DatabaseContext>(options =>
         .UseNpgsql(builder.Configuration.GetConnectionString("DefaultConnection"))
         .UseSnakeCaseNamingConvention()
 );
+builder.Services.AddRouting(options =>
+{
+    options.LowercaseUrls = true;
+    options.LowercaseQueryStrings = true;
+});
 
 var app = builder.Build();
+
+app.UseRouting();
 
 if (!app.Environment.IsProduction())
 {
