@@ -80,7 +80,10 @@ public sealed class HikingRoutesController : ControllerBase
         [FromBody] EditHikingRouteRequest request,
         CancellationToken ct = default)
     {
-        var route = await _dbContext.HikingRoutes.FirstOrDefaultAsync(x => x.Id == id, ct);
+        var route = await _dbContext.HikingRoutes
+            .Include(x => x.GearItems)
+            .Include(x => x.Coordinates)
+            .FirstOrDefaultAsync(x => x.Id == id, ct);
         if (route is null)
         {
             return NotFound("Route with passed ID wasn't found");
@@ -109,11 +112,13 @@ public sealed class HikingRoutesController : ControllerBase
 
         if (request.GearItems is not null)
         {
+            _dbContext.GearItems.RemoveRange(route.GearItems);
             route.GearItems = request.GearItems.Select(x => new GearItem { Text = x.Text, Url = x.Url }).ToList();
         }
 
         if (request.Coordinates is not null)
         {
+            _dbContext.Coordinates.RemoveRange(route.Coordinates);
             route.Coordinates = request.Coordinates
                 .Select(x => new Coordinate { Latitude = x.Latitude, Longitude = x.Longitude })
                 .ToList();
