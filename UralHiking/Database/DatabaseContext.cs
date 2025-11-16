@@ -8,6 +8,7 @@ public sealed class DatabaseContext : DbContext
     public DbSet<HikingRoute> HikingRoutes => Set<HikingRoute>();
     public DbSet<Coordinate> Coordinates => Set<Coordinate>();
     public DbSet<GearItem> GearItems => Set<GearItem>();
+    public DbSet<Comment> Comments => Set<Comment>();
 
     public DatabaseContext(DbContextOptions<DatabaseContext> options) : base(options)
     {
@@ -24,5 +25,9 @@ public sealed class DatabaseContext : DbContext
         modelBuilder.Entity<HikingRoute>()
             .HasMany(x => x.GearItems)
             .WithMany(x => x.HikingRoutes);
+
+        modelBuilder.Entity<HikingRoute>()
+            .HasMany(x => x.Comments)
+            .WithOne(x => x.HikingRoute);
     }
 }

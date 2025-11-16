@@ -22,4 +22,5 @@ public sealed class HikingRoute
     public string LocationName { get; set; } = null!;
     public ICollection<GearItem> GearItems { get; set; } = [];
     public ICollection<Coordinate> Coordinates { get; set; } = [];
+    [JsonIgnore] public ICollection<Comment> Comments { get; set; } = [];
 }
