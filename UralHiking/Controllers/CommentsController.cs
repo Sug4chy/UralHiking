@@ -59,6 +59,7 @@ public sealed class CommentsController : ControllerBase
                 UserEmail = request.UserEmail,
             }
         );
+        await _dbContext.SaveChangesAsync(ct);
 
         return Created(
             uri: $"{Request.Scheme}://{Request.Host}{Request.PathBase}/api/hiking-routes/{routeId}/comments", 
