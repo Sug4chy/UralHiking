@@ -60,6 +60,8 @@ public sealed class CommentsController : ControllerBase
             }
         );
 
-        return CreatedAtAction("Read", new { id = routeId }, null);
+        return Created(
+            uri: $"{Request.Scheme}://{Request.Host}{Request.PathBase}/api/hiking-routes/{routeId}/comments", 
+            value: null);
     }
 }
