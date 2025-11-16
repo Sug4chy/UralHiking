@@ -3,14 +3,7 @@ using System.ComponentModel.DataAnnotations;
 namespace UralHiking.Models.Dto.Requests;
 
 public sealed record CreateCommentRequest(
-    [property:Required]
-    [property:StringLength(256)]
-    string Content,
-
-    [property:Required]
+    [param:StringLength(256)] string Content,
     string UserLogin,
-
-    [property:Required]
-    [property:EmailAddress]
-    string UserEmail
+    [param:EmailAddress] string UserEmail
 );
